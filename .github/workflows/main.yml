@@ -1,34 +1,32 @@
-name: C++ Build and Test
+name: C++ CI Pipeline
 
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the master branch
+      - main   # Ensure this matches your branch name
   pull_request:
     branches:
-      - main  # Trigger on pull requests to the master branch
+      - main   # Ensure this matches your branch name
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
-
+    runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3  # This action checks out your code
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up C++ Compiler (GCC)
-      run: |
-        sudo apt update
-        sudo apt install -y g++ cmake build-essential  # Install GCC, CMake
+      # Step 2: Set up GCC (C++ compiler)
+      - name: Set up GCC
+        run: sudo apt-get update && sudo apt-get install g++
 
-    - name: Build the C++ project
-      run: |
-        mkdir build
-        cd build
-        cmake ..
-        make  # This command builds the project
+      # Step 3: Verify the GCC installation (optional but useful for debugging)
+      - name: Verify GCC version
+        run: g++ --version
 
-    - name: Run the C++ executable
-      run: |
-        cd build
-        ./main  # Run the compiled C++ code (main)
+      # Step 4: Compile the C++ file
+      - name: Compile the code
+        run: |
+          g++ hello.cpp -o hello
+          ./hello
