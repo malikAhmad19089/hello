@@ -3,10 +3,10 @@ name: C++ Build and Test
 on:
   push:
     branches:
-      - master  # Trigger the workflow on pushes to the master branch
+      - main  # Trigger the workflow on pushes to the master branch
   pull_request:
     branches:
-      - master  # Trigger on pull requests to the master branch
+      - main  # Trigger on pull requests to the master branch
 
 jobs:
   build:
